@@ -98,12 +98,12 @@ if __name__ == "__main__":
     parser = getattr(tasks, temp_args.settings.capitalize() + "ForecastTask").add_task_specific_arguments(parser)
 
     args = parser.parse_args()  # 实例化
-    utils.logging.format_logger(pl._logger)  # 生成log文件
+#     utils.logging.format_logger(pl._logger)  # 生成log文件
 
     # model = models.At_TGCN(adj=torch.eye(272,272))
 
-    if args.log_path is not None:
-        utils.logging.output_logger_to_file(pl._logger, args.log_path)
+#     if args.log_path is not None:
+#         utils.logging.output_logger_to_file(pl._logger, args.log_path)
 
     try:
         results = main(args)
