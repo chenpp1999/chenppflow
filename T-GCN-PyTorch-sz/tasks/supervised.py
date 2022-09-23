@@ -82,14 +82,14 @@ class SupervisedForecastTask(pl.LightningModule):
         accuracy = utils.metrics.accuracy(predictions, y)
         r2 = utils.metrics.r2(predictions, y)
         explained_variance = utils.metrics.explained_variance(predictions, y)
-        metrics = {
-            "val_loss": loss,
-            "RMSE": rmse,
-            "MAE": mae,
-            "accuracy": accuracy,
-            "R2": r2,
-            "ExplainedVar": explained_variance,
-        }
+#         metrics = {
+#             "val_loss": loss,
+#             "RMSE": rmse,
+#             "MAE": mae,
+#             "accuracy": accuracy,
+#             "R2": r2,
+#             "ExplainedVar": explained_variance,
+#         }
 #         self.log_dict(metrics)
         return predictions.reshape(batch[1].size()), y.reshape(batch[1].size())
 
