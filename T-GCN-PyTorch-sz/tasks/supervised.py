@@ -69,7 +69,7 @@ class SupervisedForecastTask(pl.LightningModule):
     def training_step(self, batch, batch_idx):
         predictions, y = self.shared_step(batch, batch_idx)
         loss = self.loss(predictions, y)
-#         self.log("train_loss", loss)
+        self.log("train_loss", loss)
         return loss
 
     def validation_step(self, batch, batch_idx):
@@ -82,15 +82,15 @@ class SupervisedForecastTask(pl.LightningModule):
         accuracy = utils.metrics.accuracy(predictions, y)
         r2 = utils.metrics.r2(predictions, y)
         explained_variance = utils.metrics.explained_variance(predictions, y)
-#         metrics = {
-#             "val_loss": loss,
-#             "RMSE": rmse,
-#             "MAE": mae,
-#             "accuracy": accuracy,
-#             "R2": r2,
-#             "ExplainedVar": explained_variance,
-#         }
-#         self.log_dict(metrics)
+        metrics = {
+            "val_loss": loss,
+            "RMSE": rmse,
+            "MAE": mae,
+            "accuracy": accuracy,
+            "R2": r2,
+            "ExplainedVar": explained_variance,
+        }
+        self.log_dict(metrics)
         return predictions.reshape(batch[1].size()), y.reshape(batch[1].size())
 
     def test_step(self, batch, batch_idx):
