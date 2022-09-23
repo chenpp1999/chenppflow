@@ -108,8 +108,28 @@ class GGRU(nn.Module):
 
 
 class GRU(nn.Module):
-    def __init__(self):
+    def __init__(self, input_dim: int, hidden_dim: int, **kwargs):
         super(GRU, self).__init__()
-        self._bigru = nn.GRU()
-        self._linear1 = nn.Linear()
-        self.
+        self._input_dim = input_dim
+        self._hidden_dim = hidden_dim
+        self._linear1 = nn.Linear(12, 36)
+        self._bi_gru = nn.GRU(36, 18, bidirectional=True)
+        self._linear2 = nn.Linear(36, 100)
+
+    def forward(self, X):
+        inputs = X[:, :12, :].transpose(1, 2)
+        outputs = self._linear1(inputs)
+        outputs = self._bi_gru(outputs)[0]
+        outputs = self._linear2(outputs)
+        return outputs
+
+
+    @staticmethod
+    def add_model_specific_arguments(parent_parser):
+        parser = argparse.ArgumentParser(parents=[parent_parser], add_help=False)
+        parser.add_argument("--hidden_dim", type=int, default=64)
+        return parser
+
+    @property
+    def hyperparameters(self):
+        return {"input_dim": self._input_dim, "hidden_dim": self._hidden_dim}
