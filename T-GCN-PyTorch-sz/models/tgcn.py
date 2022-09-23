@@ -266,7 +266,7 @@ class TGCN(nn.Module):
         output = self._attention_1d(output)
         # output = self._attention(output).reshape(batch_size, self._input_dim, -1)  #(-1, 156, 192)
         # output = self.ResNet(output)
-        # output = self._gru(output)[0]
+        output = self._gru(output)[0]
         output = self.linear(output)
         return output
 
