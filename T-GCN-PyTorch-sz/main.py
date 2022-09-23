@@ -61,7 +61,7 @@ def main_supervised(args):
 
 
 def main(args):
-    rank_zero_info(vars(args))          # 看不大懂，或许是在记录log吧，vars的意思没搞懂
+#     rank_zero_info(vars(args))          # 看不大懂，或许是在记录log吧，vars的意思没搞懂
     results = globals()["main_" + args.settings](args)          # globals() 返回全部全局变量
     return results
 
@@ -88,7 +88,7 @@ if __name__ == "__main__":
         choices=("supervised",),
         default="supervised",
     )
-    parser.add_argument("--log_path", type=str, default=None, help="Path to the output console log file")
+#     parser.add_argument("--log_path", type=str, default=None, help="Path to the output console log file")
     parser.add_argument("--send_email", "--email", action="store_true", help="Send email when finished")
 
     temp_args, _ = parser.parse_known_args()
